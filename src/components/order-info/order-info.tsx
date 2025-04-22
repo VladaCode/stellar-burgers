@@ -1,32 +1,39 @@
-import { FC, useMemo } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { getIngredientsWithSelector } from '../../services/slices/IngredientsSlice';
+import { useParams } from 'react-router-dom';
+import {
+  getOrderNumber,
+  getOrderNumberSelector
+} from '../../services/slices/OrderCreationSlice';
+import type { AppDispatch } from '../../services/store';
+// Компонент для отображения информации о заказе
 export const OrderInfo: FC = () => {
-  /** TODO: взять переменные orderData и ingredients из стора */
-  const orderData = {
-    createdAt: '',
-    ingredients: [],
-    _id: '',
-    status: '',
-    name: '',
-    updatedAt: 'string',
-    number: 0
-  };
+  const orderData = useSelector(getOrderNumberSelector); // Получаем данные заказа из стора
+  const id = useParams().number; // Получаем id заказа из параметров маршрута
+  const dispatch = useDispatch<AppDispatch>(); // Инициализация dispatch с типизацией
 
-  const ingredients: TIngredient[] = [];
+  useEffect(() => {
+    // При монтировании компонента диспатчим экшен для получения данных заказа
+    dispatch(getOrderNumber(Number(id)));
+  }, [dispatch, id]);
 
-  /* Готовим данные для отображения */
+  const ingredients: TIngredient[] = useSelector(getIngredientsWithSelector); // Получаем список всех ингредиентов из стора
+
+  // Формируем данные для отображения, только когда приходят orderData и ingredients
   const orderInfo = useMemo(() => {
-    if (!orderData || !ingredients.length) return null;
+    if (!orderData || !ingredients.length) return null; // Если данных нет, возвращаем null
 
-    const date = new Date(orderData.createdAt);
+    const date = new Date(orderData.createdAt); // Преобразуем строку даты из заказа в объект Date
 
     type TIngredientsWithCount = {
+      // Тип для словаря ингредиентов с подсчётом количества
       [key: string]: TIngredient & { count: number };
     };
-
+    // Проходим по списку id ингредиентов из заказа и собираем данные об ингредиентах + количество
     const ingredientsInfo = orderData.ingredients.reduce(
       (acc: TIngredientsWithCount, item) => {
         if (!acc[item]) {
@@ -45,23 +52,23 @@ export const OrderInfo: FC = () => {
       },
       {}
     );
-
+    // Проходим по списку id ингредиентов из заказа и собираем данные об ингредиентах + количество
     const total = Object.values(ingredientsInfo).reduce(
       (acc, item) => acc + item.price * item.count,
       0
     );
-
+    // Возвращаем итоговый объект с полной информацией для UI
     return {
       ...orderData,
       ingredientsInfo,
       date,
       total
     };
-  }, [orderData, ingredients]);
-
+  }, [orderData, ingredients]); // зависимости для пересчёта
+  //Пока нет данных — показываем прелоадер
   if (!orderInfo) {
     return <Preloader />;
   }
-
+  // Когда данные готовы — рендерим UI-компонент с информацией о заказе
   return <OrderInfoUI orderInfo={orderInfo} />;
 };
