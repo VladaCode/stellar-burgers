@@ -2,19 +2,19 @@ import { FC, useEffect, useMemo } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/store';
 import { getIngredientsWithSelector } from '../../services/slices/IngredientsSlice';
 import { useParams } from 'react-router-dom';
 import {
   getOrderNumber,
   getOrderNumberSelector
 } from '../../services/slices/OrderCreationSlice';
-import type { AppDispatch } from '../../services/store';
+
 // Компонент для отображения информации о заказе
 export const OrderInfo: FC = () => {
   const orderData = useSelector(getOrderNumberSelector); // Получаем данные заказа из стора
   const id = useParams().number; // Получаем id заказа из параметров маршрута
-  const dispatch = useDispatch<AppDispatch>(); // Инициализация dispatch с типизацией
+  const dispatch = useDispatch(); // Инициализация dispatch с типизацией
 
   useEffect(() => {
     // При монтировании компонента диспатчим экшен для получения данных заказа

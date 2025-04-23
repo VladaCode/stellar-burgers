@@ -32,7 +32,9 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => {
           </NavLink>
         </div>
         <div className={styles.logo}>
-          <Logo className='' />
+          <NavLink to={'/'}>
+            <Logo className='' />
+          </NavLink>
         </div>
         <div className={styles.link_position_last}>
           <NavLink to={'/profile'} className={activeLink}>

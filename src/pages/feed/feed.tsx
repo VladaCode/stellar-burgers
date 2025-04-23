@@ -1,15 +1,13 @@
 import { Preloader } from '@ui';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/store';
 import { FeedUI } from '@ui-pages';
 import { TOrder } from '@utils-types';
 import { FC, useEffect } from 'react';
 import { getFeeds, getOrdersSelector } from '../../services/slices/FeedSlice';
-import { AppDispatch } from 'src/services/store';
 import { log } from 'console';
 
 export const Feed: FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  /** TODO: взять переменную из стора */
+  const dispatch = useDispatch();
   const orders: TOrder[] = useSelector(getOrdersSelector);
   // При первом рендере загружаем данные
   useEffect(() => {
