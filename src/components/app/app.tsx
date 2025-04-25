@@ -38,7 +38,6 @@ const App = () => {
   const location = useLocation(); // Инициализируем хук для получения текущего местоположения
   const dispatch = useDispatch(); // Инициализируем хук для работы с хранилищем
   const loading = useSelector(getLoadingSelector); // Получение состояния загрузки
-  const isAuthChecked = useSelector(getIsAuthCheckedSelector);
 
   const background = location.state?.background; // Проверяем, была ли навигация с background — используется для отображения модальных окон
   // Получаем номер заказа из URL, если пользователь открыл заказ из профиля или ленты
