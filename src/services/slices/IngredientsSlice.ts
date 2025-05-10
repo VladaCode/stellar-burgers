@@ -3,13 +3,13 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TIngredient } from '@utils-types';
 // Слай для
 // Тип состояния для ингредиентов
-type TStateIngredients = {
+export type TStateIngredients = {
   ingredients: Array<TIngredient>;
   loading: boolean;
   error: null | string | undefined;
 };
 // Начальное состояние
-const initialState: TStateIngredients = {
+export const initialState: TStateIngredients = {
   ingredients: [],
   loading: false,
   error: null

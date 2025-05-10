@@ -7,7 +7,7 @@ type TStateBurgerConstructor = {
   ingredients: TConstructorIngredient[]; // массив добавленных ингредиентов
 };
 // Начальное состояние
-const initialState: TStateBurgerConstructor = {
+export const initialState: TStateBurgerConstructor = {
   bun: null,
   ingredients: []
 };

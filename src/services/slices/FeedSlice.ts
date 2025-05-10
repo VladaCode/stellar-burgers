@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
 
 // Тип состояния для ленты заказов
-type TFeedState = {
+export type TFeedState = {
   orders: TOrder[];
   total: number;
   totalToday: number;
@@ -11,7 +11,7 @@ type TFeedState = {
   error: null | string | undefined;
 };
 // Начальное состояние
-const initialState: TFeedState = {
+export const initialState: TFeedState = {
   orders: [],
   total: 0,
   totalToday: 0,
@@ -24,7 +24,7 @@ export const getFeeds = createAsyncThunk('feed/fetchFeeds', async () => {
   return response;
 });
 // Слайс состояния ленты заказов
-const feedSlice = createSlice({
+export const feedSlice = createSlice({
   name: 'feed',
   initialState,
   reducers: {},

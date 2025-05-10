@@ -12,14 +12,14 @@ import { TUser } from '@utils-types';
 import { deleteCookie, getCookie, setCookie } from '../../utils/cookie';
 
 // Тип состояния
-type TUserState = {
+export type TUserState = {
   user: TUser | null; // объект с данными пользователя
   isAuthChecked: boolean; // Проверен ли статус авторизации
   error: null | string | undefined; // Сообщение об ошибке
 };
 
 // Начальное состояние
-const initialState: TUserState = {
+export const initialState: TUserState = {
   user: null,
   isAuthChecked: false,
   error: null
