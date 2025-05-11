@@ -14,7 +14,7 @@ type TRefreshResponse = TServerResponse<{
   refreshToken: string;
   accessToken: string;
 }>;
-
+// Метод обновления access-токена
 export const refreshToken = (): Promise<TRefreshResponse> =>
   fetch(`${URL}/auth/token`, {
     method: 'POST',
@@ -161,7 +161,7 @@ export type TLoginData = {
   email: string;
   password: string;
 };
-
+// Отправляем данные формы на сервер для авторизации
 export const loginUserApi = (data: TLoginData) =>
   fetch(`${URL}/auth/login`, {
     method: 'POST',
