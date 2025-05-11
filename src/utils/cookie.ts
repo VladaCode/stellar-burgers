@@ -9,7 +9,7 @@ export function getCookie(name: string): string | undefined {
   );
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
-
+// Функция setCookie принимает три аргумента: name (имя куки), value (значение куки) и props (объект, содержащий дополнительные свойства куки)
 export function setCookie(
   name: string,
   value: string,
